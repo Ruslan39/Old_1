@@ -1,4 +1,4 @@
-
+'use strict';
 
 function calculateQuadraticEquation(){
     let a = +window.a.value;
@@ -11,8 +11,20 @@ function calculateQuadraticEquation(){
 }
 
 function getResult(a,b,c){
-    // код для задачи №1 писать здесь
-    //return x;
+    let d = Math.pow(b, 2) - 4 * a * c;
+    let x, x1, x2;
+
+    if (d < 0) {
+        console.log ('Данное квадратное уравнение корней не имеет!');
+    } else if (d == 0) {
+        console.log('Квадратное уравнение имеет 1 корень: ' + (x = ((-b + Math.sqrt(d))/(2 * a))));        
+    } else {
+        x1 = ((-b + Math.sqrt(d))/(2 * a));        
+        x2 = ((-b - Math.sqrt(d))/(2 * a));
+        console.log('Квадратное уравнение имеет 2 корня: ' + (x = [x1, x2]));        
+    }
+
+    return x;
 }
 
 function calculateDrinkTask(){
@@ -22,19 +34,43 @@ function calculateDrinkTask(){
     window.drink.textContent = drink;
 }
 
-function askDrink(name,dateOfBirthday){
-    // код для задачи №2 писать здесь
-    //console.log(result)
-    //return result;
+function askDrink(name, dateOfBirthday){
+    let age = (new Date().getFullYear() - dateOfBirthday.getFullYear());
+
+    console.log(`Возраст посетителя ${name} - ${age}`);
+    
+    if (age >= 18) {
+        console.log(`Не желаете ли олд-фэшн, ${name}?`);
+    } else {
+        console.log(`Сожалею, ${name}, но я не могу вам продать алкоголь. Зато могу предложить вам замечательный клюквенный компот!`);
+    }
+    
+    return age;
 }
 
 function calculateAverageRating(){
-    let marks = window.marks.value.split("").map(Number);
+    let marks = window.marks.value.split("").map(Number).filter((n)=> !isNaN(n) && n > 0);
     let averageMark = getAverageMark(marks);
     window.averageMark.textContent = averageMark;
 }
 
 function getAverageMark(marks){
-    // код для задачи №3 писать здесь
-    //return averageMark;
+    if (marks.length > 5) {
+        console.log(`Ученик получил ${marks.length} оценок`);
+
+        for (let i = marks.length; i > 5; i--) {
+            marks.pop();
+        }
+    }
+
+    let sumMarks = 0;
+
+    for (let i = 0; i < marks.length; i++) {
+        sumMarks += marks[i];        
+    }
+    
+    let averageMark = sumMarks / marks.length;
+    console.log(`Средняя оценка ученика - ${averageMark}`);
+
+    return averageMark;
 }
