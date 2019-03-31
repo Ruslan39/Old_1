@@ -15,13 +15,16 @@ function getResult(a,b,c){
     let x, x1, x2;
 
     if (d < 0) {
-        console.log ('Данное квадратное уравнение корней не имеет!');
+        x = null;
+        console.log('Данное квадратное уравнение корней не имеет!');
     } else if (d == 0) {
-        console.log('Квадратное уравнение имеет 1 корень: ' + (x = ((-b + Math.sqrt(d))/(2 * a))));        
+        x = (-b + Math.sqrt(d))/(2 * a);
+        console.log('Квадратное уравнение имеет 1 корень: ' + x);        
     } else {
-        x1 = ((-b + Math.sqrt(d))/(2 * a));        
-        x2 = ((-b - Math.sqrt(d))/(2 * a));
-        console.log('Квадратное уравнение имеет 2 корня: ' + (x = [x1, x2]));        
+        x1 = (-b + Math.sqrt(d))/(2 * a);        
+        x2 = (-b - Math.sqrt(d))/(2 * a);
+        x = [x1, x2];
+        console.log('Квадратное уравнение имеет 2 корня: ' + x);        
     }
 
     return x;
@@ -40,9 +43,11 @@ function askDrink(name, dateOfBirthday){
     console.log(`Возраст посетителя ${name} - ${age}`);
     
     if (age >= 18) {
-        console.log(`Не желаете ли олд-фэшн, ${name}?`);
+        age = `Не желаете ли олд-фэшн, ${name}?`;
+        console.log(age);
     } else {
-        console.log(`Сожалею, ${name}, но я не могу вам продать алкоголь. Зато могу предложить вам замечательный клюквенный компот!`);
+        age = `Сожалею, ${name}, но я не могу вам продать алкоголь. Зато могу предложить вам замечательный клюквенный компот!`;
+        console.log(age);
     }
     
     return age;
@@ -58,9 +63,8 @@ function getAverageMark(marks){
     if (marks.length > 5) {
         console.log(`Ученик получил ${marks.length} оценок`);
 
-        for (let i = marks.length; i > 5; i--) {
-            marks.pop();
-        }
+        marks.splice(5, marks.length);
+        console.log(`Берем только 5 первых: ${marks}`);        
     }
 
     let sumMarks = 0;
