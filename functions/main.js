@@ -5,44 +5,52 @@
 
 
 function getSolutions(a, b, c) {
-    let D = Math.pow(b, 2) - 4 * a * c;    
-    let x1, x2;
+  let D = Math.pow(b, 2) - 4 * a * c;    
+  let x1, x2;
 
-    if (D < 0) {
-        return {
-            D: D
-        };
-    } else if (D == 0) {
-        x1 = -b/(2 * a);
+  if (D < 0) {
+    return {
+      roots: null,        
+      D
+    };
+
+  } else if (D == 0) {
+    x1 = -b/(2 * a);
         
-        return {
-            roots: [x1],
-            D: D
-        };
-    } else {
-        x1 = (-b + Math.sqrt(D))/(2 * a);
-        x2 = (-b - Math.sqrt(D))/(2 * a);
+    return {
+      roots: [x1],
+      D
+    };
+
+  } else {
+
+    x1 = (-b + Math.sqrt(D))/(2 * a);
+    x2 = (-b - Math.sqrt(D))/(2 * a);
         
-        return {
-            roots: [x1, x2],
-            D: D        
-        };
-    }
+    return {
+      roots: [x1, x2],
+      D       
+    };
+  }
 }
 
 function showSolutionsMessage(a, b, c) {
-    let result = getSolutions(a, b, c);
+  let result = getSolutions(a, b, c);
 
-    console.log(`Вычисляем корни квадратного уравнения ${a}x² + ${b}x + ${c}`);
-    console.log(`Значение дискриминанта: ${result.D}`);
+  console.log(`Вычисляем корни квадратного уравнения ${a}x² + ${b}x + ${c}`);
+  console.log(`Значение дискриминанта: ${result.D}`);
 
-    if (result.D < 0) {
-        console.log(`Уравнение не имеет вещественных корней`);
-    } else if (result.D == 0) {
-        console.log(`Уравнение имеет один корень X₁ = ${result.roots[0]}`);
-    } else {        
-        console.log(`Уравнение имеет два корня. X₁ = ${result.roots[0]}, X₂ = ${result.roots[1]}`);
-    }
+  //if (result.D < 0) { //предыдущее решение с проверкой по значению дискриминанта
+    if (result.roots == null) {
+    console.log(`Уравнение не имеет вещественных корней`);
+
+  //} else if (result.D == 0) { //предыдущее решение с проверкой по значению дискриминанта
+    } else if (result.roots.length == 1) {
+    console.log(`Уравнение имеет один корень X₁ = ${result.roots[0]}`);
+
+    } else {    
+    console.log(`Уравнение имеет два корня. X₁ = ${result.roots[0]}, X₂ = ${result.roots[1]}`);
+  }
 }
 
 console.log(showSolutionsMessage(1, 2, 3));
@@ -54,45 +62,32 @@ console.log(showSolutionsMessage(2, 4, 2));
 
 
 function getPersonData(secretData) {
-    let NameSurname = getNameSurname(secretData);
+  let NameSurname = {};
 
-    return {
-      firstName: NameSurname.aaa,
-      lastName: NameSurname.bbb
-    };
+  for (let pars in secretData) {
+    NameSurname[pars] = getNameSurname(secretData[pars]);
   }
+
+  return {
+    firstName: NameSurname.aaa,
+    lastName: NameSurname.bbb
+  };
+}
+
+function getNameSurname(decryption) {
+  return (decryption == 0) ? 'Родриго' : 'Эмильо';  
+}
   
-  function getNameSurname(secretData) {
-      for (let pars in secretData) {      
-        if (secretData[pars] == 0) {
-            secretData[pars] = 'Родриго';
-
-          } else if (secretData[pars] == 1) {
-            secretData[pars] = 'Эмильо';
-          }
-      }
-
-      return secretData;
-  }
-  
-  console.log(getPersonData({aaa: 0, bbb: 0}));
-  console.log(getPersonData({aaa: 1, bbb: 0}));
-  console.log(getPersonData({aaa: 0, bbb: 1}));
-  console.log(getPersonData({aaa: 1, bbb: 1}));
+console.log(getPersonData({aaa: 0, bbb: 0}));
+console.log(getPersonData({aaa: 1, bbb: 0}));
+console.log(getPersonData({aaa: 0, bbb: 1}));
+console.log(getPersonData({aaa: 1, bbb: 1}));
 
 
-  // ============================== Задание №3 =======================================
+// ============================== Задание №3 =======================================
   
 
-function getAverageScore(data) {
-
-  function getDisciplineAverage(marks) {
-    let sum = 0;
-    for (let i = 0; i < marks.length; i++) {
-      sum += marks[i];
-    }
-    return sum / marks.length;
-  } 
+function getAverageScore(data) {  
   
   let averageTable = {};
   let totalDisciplines = 0;
@@ -108,6 +103,14 @@ function getAverageScore(data) {
 
   return {averageTable};
 }
+
+function getDisciplineAverage(marks) {
+  let sum = 0;
+  for (let i = 0; i < marks.length; i++) {
+    sum += marks[i];
+  }
+  return sum / marks.length;
+} 
 
 console.log(getAverageScore({
   algebra: [2, 4, 5, 2, 3, 4],
