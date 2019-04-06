@@ -9,8 +9,7 @@ function getSolutions(a, b, c) {
   let x1, x2;
 
   if (D < 0) {
-    return {
-      roots: null,        
+    return {        
       D
     };
 
@@ -40,16 +39,15 @@ function showSolutionsMessage(a, b, c) {
   console.log(`Вычисляем корни квадратного уравнения ${a}x² + ${b}x + ${c}`);
   console.log(`Значение дискриминанта: ${result.D}`);
 
-  //if (result.D < 0) { //предыдущее решение с проверкой по значению дискриминанта
-    if (result.roots == null) {
-    console.log(`Уравнение не имеет вещественных корней`);
+  if (result.roots == null) {
+  console.log(`Уравнение не имеет вещественных корней`);
 
-  //} else if (result.D == 0) { //предыдущее решение с проверкой по значению дискриминанта
-    } else if (result.roots.length == 1) {
-    console.log(`Уравнение имеет один корень X₁ = ${result.roots[0]}`);
+  
+  } else if (result.roots.length == 1) {
+  console.log(`Уравнение имеет один корень X₁ = ${result.roots[0]}`);
 
-    } else {    
-    console.log(`Уравнение имеет два корня. X₁ = ${result.roots[0]}, X₂ = ${result.roots[1]}`);
+  } else {    
+  console.log(`Уравнение имеет два корня. X₁ = ${result.roots[0]}, X₂ = ${result.roots[1]}`);
   }
 }
 
@@ -101,7 +99,7 @@ function getAverageScore(data) {
 
   averageTable.average = sumForAverage / totalDisciplines;
 
-  return {averageTable};
+  return averageTable;
 }
 
 function getDisciplineAverage(marks) {
@@ -121,6 +119,5 @@ console.log(getAverageScore({
   english: [4, 4, 3],
   poetry: [5, 3, 4],
   chemistry: [2],
-  french: [4, 4],
-  //programming: [5, 5, 5, 5, 5]
+  french: [4, 4]  
 }));
