@@ -26,24 +26,18 @@ class Weapon {
 
     getDamage() {
         if (this.durability === 0) {
-            console.log(`Атака оружием "${this.name}" - 0 ед.`);
+            return 0;
         } else if (this.durability === Infinity) {
-            console.log(`Атака оружием "${this.name}" - ${this.attack} ед.`);
+            return this.attack;
         } else if (this.durability < (this.originalDurability * 0.3)) {
-            console.log(`Атака оружием "${this.name}" - ${this.attack / 2} ед.`);
+            return (this.attack / 2);
         } else {
-            console.log(`Атака оружием "${this.name}" - ${this.attack} ед.`);
+            return this.attack;
         }
     }
 
     isBroken() {
-        if (this.durability > 0) {
-            console.log(false);
-            return false;
-        } else {
-            console.log(true);
-            return true;
-        }
+        return !(this.durability > 0);
     }
 }
 
@@ -157,27 +151,18 @@ class Crosier extends Weapon {
 
 
 class LongBow extends Bow {
-    constructor() {
-        super({name: 'Лук', attack: 10, durability: 200, range: 3});
-    }
     name = 'Длинный лук';
     attack = 15;
     range = 4;
 }
 
 class Poleaxe extends Sword {
-    constructor() {
-        super({name: 'Меч', attack: 25, durability: 500, range: 1});
-    }
     name = 'Секира';
     attack = 27;
     durability = 800;
 }
 
 class StormCrosier extends Crosier {
-    constructor() {
-        super({name: 'Посох', attack: 8, durability: 300, range: 2});
-    }
     name = 'Посох Бури';
     attack = 10;
     range = 3;
@@ -235,18 +220,18 @@ class StudentLog {
             this.Grades[subject] = [];
         }            
                 
-        if (grade === 1 || grade === 2 || grade === 3 || grade === 4 || grade === 5) {
+        if (grade >=1 && grade <= 5) {
             this.Grades[subject].push(grade);
         } else {
             console.log(`Вы пытались поставить оценку "${grade}" по предмету "${subject}". Допускаются только числа от 1 до 5.`);
         }        
 
-        return `Всего оценок по предмету "${subject}": ${this.Grades[subject].length}`;
+        return this.Grades[subject].length;
     }
 
     getAverageBySubject(subject) {
         if (this.Grades[subject] === undefined || this.Grades[subject] == 0) {
-            return `~~~ По предмету ${subject} оценок нет`;
+            return 0;
         }
 
         let sumGrades = 0;
@@ -257,27 +242,25 @@ class StudentLog {
         
         const averageBySubject = sumGrades / this.Grades[subject].length;
 
-        return `~~~ Средняя оценка по предмету "${subject}": ${averageBySubject}`;
+        return averageBySubject;
     }
 
     getTotalAverage() {
         let sumTotalGrades = 0;
-        let gradesAmount = 0
+        let subjectAmount = 0;
 
         for (let subject in this.Grades) {
-            for (let grade in this.Grades[subject]) {
-                sumTotalGrades += this.Grades[subject][grade];
-                gradesAmount++;
-            }
+            sumTotalGrades += this.getAverageBySubject(subject);
+            subjectAmount++;
         }
 
-        if (sumTotalGrades === 0 || gradesAmount === 0) {
-            return `~~~~~~ По всем предметам оценок нет`;
+        if (sumTotalGrades === 0) {
+            return 0;
         }
 
-        const totalAverage = sumTotalGrades / gradesAmount;
+        const totalAverage = sumTotalGrades / subjectAmount;
 
-        return `~~~~~~ Средняя оценка по всем предметам: ${totalAverage}`;    
+        return totalAverage;
     }
 
 }
